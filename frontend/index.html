@@ -51,6 +51,22 @@
         <button onclick="generatePassword()">Generar Contraseña</button>
         <div id="output"></div>
     </div>
-    <script src="js/script.js"></script>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById('length').value;
+            const includeUppercase = document.getElementById('include-uppercase').checked;
+            const includeNumbers = document.getElementById('include-numbers').checked;
+            const includeSymbols = document.getElementById('include-symbols').checked;
+
+            // Hacer la solicitud GET al backend
+            fetch(`http://localhost:3000/index.php?length=${length}&include-uppercase=${includeUppercase}&include-numbers=${includeNumbers}&include-symbols=${includeSymbols}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').textContent = data.password;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>

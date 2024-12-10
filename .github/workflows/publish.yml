@@ -1,0 +1,71 @@
+name: Docker CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Job 1: Build y Push al Docker Hub (Frontend)
+  build-and-push-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Frontend Docker Image
+        run: docker build -t gzpereira/password-generator:frontend ./frontend
+
+      - name: Push Frontend Image to Docker Hub
+        run: docker push gzpereira/password-generator:frontend
+
+  # Job 2: Build y Push al Docker Hub (Backend)
+  build-and-push-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Backend Docker Image
+        run: docker build -t gzpereira/password-generator:backend ./backend
+
+      - name: Push Backend Image to Docker Hub
+        run: docker push gzpereira/password-generator:backend
+
+  # Job 3: Build y Push a GitHub Packages
+  build-and-push-to-github-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CD_TOKEN }}
+
+      - name: Build Frontend Image for GitHub Packages
+        run: docker build -t ghcr.io/${{ github.repository }}/frontend:latest ./frontend
+
+      - name: Build Backend Image for GitHub Packages
+        run: docker build -t ghcr.io/${{ github.repository }}/backend:latest ./backend
+
+      - name: Push Frontend Image to GitHub Packages
+        run: docker push ghcr.io/${{ github.repository }}/frontend:latest
+
+      - name: Push Backend Image to GitHub Packages
+        run: docker push ghcr.io/${{ github.repository }}/backend:latest

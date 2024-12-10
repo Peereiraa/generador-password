@@ -3,12 +3,12 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./GeneradorContraseña
+      context: ./frontend
     ports:
       - "8080:80"
 
   backend:
     build:
-      context: ./Backend
+      context: ./backend
     ports:
-      - "3000:3000"
+      - "3000:80"

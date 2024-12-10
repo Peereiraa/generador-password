@@ -5,4 +5,4 @@ FROM php:8.2-apache
 COPY . /var/www/html
 
 # Exponer el puerto 3000
-EXPOSE 3000
+EXPOSE 80
