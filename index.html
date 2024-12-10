@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="checkbox"] {
+            margin: 0 5px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generador de Contraseñas</h1>
+        <label>
+            Longitud:
+            <input type="number" id="length" min="6" max="20" value="12">
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="include-uppercase" checked>
+            Incluir Mayúsculas
+        </label>
+        <label>
+            <input type="checkbox" id="include-numbers" checked>
+            Incluir Números
+        </label>
+        <label>
+            <input type="checkbox" id="include-symbols" checked>
+            Incluir Símbolos
+        </label>
+        <br>
+        <button onclick="generatePassword()">Generar Contraseña</button>
+        <div id="output"></div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
