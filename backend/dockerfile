@@ -1,0 +1,8 @@
+# Usar PHP como base
+FROM php:8.2-apache
+
+# Copiar el contenido del backend al directorio predeterminado de Apache
+COPY . /var/www/html
+
+# Exponer el puerto 3000
+EXPOSE 3000
