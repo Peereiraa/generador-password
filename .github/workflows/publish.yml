@@ -62,10 +62,10 @@ jobs:
         run: docker build -t ghcr.io/${{ github.repository_owner }}/frontend:latest ./frontend
 
       - name: Build Backend Image for GitHub Packages
-        run: docker build -t ghcr.io/${{ github.repository }}/backend:latest ./backend
+        run: docker build -t ghcr.io/peereiraa/backend:latest ./backend
 
       - name: Push Frontend Image to GitHub Packages
-        run: docker push ghcr.io/${{ github.repository }}/frontend:latest
+        run: docker push ghcr.io/peereiraa/frontend:latest
 
       - name: Push Backend Image to GitHub Packages
-        run: docker push ghcr.io/${{ github.repository }}/backend:latest
+        run: docker push ghcr.io/peereiraa/backend:latest
